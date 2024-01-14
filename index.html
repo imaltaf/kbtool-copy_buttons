@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>kbTool</title>
+  <style>
+    body {
+      --background-color: #18181B;
+      --text-color: #A1A1AA;
+
+      font-family: 'Inter', Arial;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.015);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Glow border effect */
+      overflow: hidden;
+      max-width: 300px;
+      width: 90%;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      cursor: pointer;
+      color: #fff;
+      user-select: none;
+      transition: background 0.3s ease-in-out, color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      font-family: 'HackerFont', monospace; /* Replace 'HackerFont' with the actual font you want to use */
+    }
+
+    .tab:hover {
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Glow effect on hover */
+    }
+
+    .content {
+      padding: 20px;
+      color: var(--text-color);
+    }
+
+    .copy-button {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+      position: relative;
+    }
+
+    .copy-button:hover {
+      background: rgba(255, 255, 255, 0.3); /* Adjust the background color on hover */
+    }
+
+    .copied-animation {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      color: #34D399;
+      font-weight: bold;
+      font-size: 12px;
+      animation: fadeInOut 2s forwards;
+    }
+
+    @keyframes fadeInOut {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .tabs {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+    
+
+<div class="container">
+  <div class="tabs">
+    <div class="tab" onclick="showTab('approved')">Approved</div>
+    <div class="tab" onclick="showTab('reject')">Reject</div>
+    <div class="tab" onclick="showTab('pending')">Add</div>
+  </div>
+
+  <div id="approved" class="content">
+    <h2>QID_109</h2>
+    <button class="copy-button" onclick="copyToClipboard('salary_slip', this)">salary_slip</button>
+    <button class="copy-button" onclick="copyToClipboard('bank_narration', this)">bank_narration</button>
+    <button class="copy-button" onclick="copyToClipboard('company_id', this)">company_id</button>
+    <h2>QID_061</h2>
+    <button class="copy-button" onclick="copyToClipboard('Approved', this)">Approved</button>
+    <h2>QID_102</h2>
+    <button class="copy-button" onclick="copyToClipboard('KYC documents are proper', this)">KYC</button>
+    <button class="copy-button" onclick="copyToClipboard('selfie', this)">selfie</button>
+    <button class="copy-button" onclick="copyToClipboard('pan', this)">pan</button>
+    <button class="copy-button" onclick="copyToClipboard('aadhaar', this)">aadhaar</button>
+  </div>
+
+  <div id="reject" class="content" style="display: none;">
+    <!-- Content for Reject tab goes here -->
+    <h5>QID_108</h5>
+    <button class="copy-button" onclick="copyToClipboard('NOT APPROVED', this)">NOT APPROVED</button>
+    <h5>QID_109</h5>
+    <button class="copy-button" onclick="copyToClipboard('NOT MATCH', this)">NOT MATCH</button>
+    <h5>QID_101</h5>
+    <button class="copy-button" onclick="copyToClipboard('not found', this)">not found</button>
+    <h4>QID_061</h4>
+    <button class="copy-button" onclick="copyToClipboard('Salary Mode is cash', this)">cash</button>
+    <button class="copy-button" onclick="copyToClipboard('Salary Mode is Cheque', this)">Cheque</button>
+    <button class="copy-button" onclick="copyToClipboard('Govt Employee', this)">Govt Employee</button>
+    <button class="copy-button" onclick="copyToClipboard('Self Employed', this)">Self Employed</button>
+    <button class="copy-button" onclick="copyToClipboard('Not a Salaried Employee', this)">NOT-Sal</button>
+    <button class="copy-button" onclick="copyToClipboard('Salary Irregular', this)">Salary Irregular</button>
+  </div>
+
+  <div id="pending" class="content" style="display: none;">
+    <!-- Content for Pending tab goes here -->
+    <button class="copy-button" onclick="copyToClipboard('QID75-Latest 3-months statement not available, Need Recent 3/6 Months Bank Acc statement Hence Given Preset.', this)">QID_75</button>
+    <button class="copy-button" onclick="copyToClipboard('Need valid id card or pay slips to confirm salary', this)">Docs</button>
+    <button class="copy-button" onclick="copyToClipboard('salary not found -- ', this)">Not_Sal</button>
+    <button class="copy-button" onclick="copyToClipboard('Need to confirm salary -- ', this)">Salary_Hold Text 4</button>
+    <button class="copy-button" onclick="copyToClipboard('Need till date bank statement -- Hence given p-reset ', this)">1M-p-reset</button>
+
+  </div>
+</div>
+
+<script>
+  function showTab(tabId) {
+    // Hide all tabs
+    document.getElementById('approved').style.display = 'none';
+    document.getElementById('reject').style.display = 'none';
+    document.getElementById('pending').style.display = 'none';
+
+    // Show the selected tab
+    document.getElementById(tabId).style.display = 'block';
+  }
+
+  function copyToClipboard(text, button) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+
+    // Hide the stored text
+    button.innerText = '';
+
+    // Display the "Copied!" animation
+    const copiedAnimation = document.createElement('div');
+    copiedAnimation.classList.add('copied-animation');
+    copiedAnimation.innerText = 'Copied!';
+    button.appendChild(copiedAnimation);
+
+    setTimeout(() => {
+      // Show the stored text again
+      button.innerText = 'Copy ' + text;
+      button.removeChild(copiedAnimation);
+    }, 2000);
+  }
+</script>
+
+</body>
+</html>
